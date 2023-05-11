@@ -25,7 +25,7 @@ header {
 }
 
 h1, h2, h3 {
-    font-family: 'Syne', serif;
+    font-family: 'Syne', cursive;
 }
 
 h1 {
@@ -39,6 +39,7 @@ main {
 }
 
 h2 {
+    font-size: 20pt;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     color: var(--subtitle-text-color);
