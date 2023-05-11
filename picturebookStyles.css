@@ -1,0 +1,127 @@
+
+/* General styles */
+body {
+    --background-color: #17072b;
+    --body-text: rgb(199, 199, 199);
+    --header-color: #110124;
+    --card-color: rgb(22, 11, 53);
+    --detail-color: rgb(28, 14, 66);
+    --detail-hover-color: rgb(29, 14, 70);
+    --subtitle-text-color: #a7854a;
+
+
+    font-family: 'Recursive', sans-serif;
+    color: var(--body-text);
+    line-height: 1.6;
+    background-color: var(--background-color);
+    text-align: center;
+}
+
+header {
+    background-color: var(--header-color);
+    text-align: center;
+    padding: 1rem 0;
+    color: #ddd;
+}
+
+h1, h2, h3 {
+    font-family: 'Syne', cursive;
+}
+
+h1 {
+    margin-bottom: 0.2rem;
+}
+
+main {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+h2 {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    color: var(--subtitle-text-color);
+}
+
+.card {
+    background-color: var(--card-color);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Project cards */
+.project-card {
+    background-color: var(--detail-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    transition: transform 0.3s; /* Add transition for hover effect */
+}
+
+.project-card:hover {
+    transform: scale(1.02); /* Add hover effect */
+    background-color: var(--detail-hover-color);
+}
+
+.project-card a {
+    text-decoration: none;
+    color: inherit;
+    margin: none;
+}
+
+/* Social links */
+#social a {
+    display: inline-block;
+    background-color: var(--detail-color);
+    color: var(--body-text);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+#social a:hover {
+    background-color: var(--detail-hover-color);
+}
+
+
+/* Changes for different media sizes */
+h1 {
+    font-size: 40pt;
+}
+
+h2 {
+    font-size: 30pt;
+}
+
+h3 {
+    font-size: 20pt;
+}
+
+body {
+    font-size: 16pt;
+}
+
+@media (max-width: 1000px) {
+
+    h1 {
+        font-size: 35pt;
+    }
+
+    h2 {
+        font-size: 25pt;
+    }
+
+    h3 {
+        font-size: 20pt;
+    }
+
+    body {
+        font-size: 14pt;
+    }
+}
