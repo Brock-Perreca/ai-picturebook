@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = 'KEY HERE';
 
 function generatePictureBook() {
   const promptInput = document.getElementById("prompt");
