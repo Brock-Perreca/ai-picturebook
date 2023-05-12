@@ -1,42 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="picturebookStyles.css">
-
-    <title>Brock Perreca</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Raleway:ital,wght@0,300;1,700&family=Recursive&family=Syne:wght@600&display=swap" rel="stylesheet">
-
-    <script defer src="picturebookScripts.js"></script>
-
+    <link rel="stylesheet" href="index.css">
+    <title>Picture Book Generator</title>
 </head>
 <body>
-    <header>
-        <h1>AI Picture Book</h1>
-    </header>
 
     <main>
-        <section class="card" id="bio">
-            <h2>Current Status</h2>
-            <p>
-                This project is currently in development. An original website with beta functionality will be available in the near future.
-            </p>
+        <h1>AI Picturebook</h1>
+        <p>Enter a simple prompt to create a picture book using OpenAI's GPT-3.5 and Dall-E:</p>
+        <input type="password" id="key" placeholder="Enter your OpenAI API Key here...">
+        <input type="text" id="prompt" placeholder="Enter your prompt here...">
+        <button onclick="generatePictureBook()">Generate Picture Book</button>
+    
+        <section>
+            <h2>How It Works</h2>
+            <p>Our picture book generator uses OpenAI's GPT-3.5 to understand your prompt and create a story based on it. Dall-E is then used to generate images that correspond to the story. The result is a unique and personalized picture book for you to enjoy.</p>
         </section>
-        <section class="card" id="social">
-            <h2>See more of me</h2>
-            <a href="https://www.brockperreca.com">Website</a>
-            <a href="https://www.linkedin.com/in/brock-perreca/" target="_blank">LinkedIn</a>
-            <a href="https://github.com/Brock-Perreca" target="_blank">GitHub</a>
-            <a href="https://brock-perreca.itch.io/" target="_blank">Itch</a>
-            <a href="mailto:info@brockperreca.com" >Email</a>
+    
+        <section>
+            <h2>Examples</h2>
+            <div class="example">
+                <p><strong>Prompt:</strong> A magical adventure with talking animals</p>
+                <p><strong>Generated Book:</strong> "The Enchanted Forest Adventure: A Tale of Friendship and Magic"</p>
+            </div>
+            <div class="example">
+                <p><strong>Prompt:</strong> A child's journey through space</p>
+                <p><strong>Generated Book:</strong> "Astronaut Alex: Exploring the Wonders of the Universe"</p>
+            </div>
         </section>
-
     </main>
+
+    <script src="index.js"></script>
 </body>
 </html>
