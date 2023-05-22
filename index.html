@@ -11,14 +11,23 @@
 
     <main>
         <h1>AI Picturebook</h1>
-        <p>Enter a simple prompt to create a picture book using OpenAI's GPT-3.5 and Dall-E:</p>
+        <p>Enter a simple prompt to create a picture book using AI:</p>
         <input type="password" id="key" placeholder="Enter your OpenAI API Key here...">
         <input type="text" id="prompt" placeholder="Enter your prompt here...">
         <button onclick="generatePictureBook()">Generate Picture Book</button>
+
+        <section>
+            <p id="tempResponse">Response Goes Here</p>
+        </section>
+
+        <section>
+            <img id="tempImageResponse">
+        </section>
+
     
         <section>
             <h2>How It Works</h2>
-            <p>Our picture book generator uses OpenAI's GPT-3.5 to understand your prompt and create a story based on it. Dall-E is then used to generate images that correspond to the story. The result is a unique and personalized picture book for you to enjoy.</p>
+            <p>Our picture book generator uses OpenAI's Text Completion AI to understand your prompt and create a story based on it. Dall-E is then used to generate images that correspond to the story. The result is a unique and personalized picture book for you to enjoy.</p>
         </section>
     
         <section>
