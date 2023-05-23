@@ -110,3 +110,14 @@ p {
     object-fit: cover;
     border: 1px solid #ccc;
 }
+
+#square {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 400px;
+    height: 400px;
+    margin: 0;
+    padding: 0;
+    background-color: red;
+}
