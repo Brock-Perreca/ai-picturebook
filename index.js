@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setResponse("Hello, please type something");
 });
 
-function generatePictureBook() {
+async function generatePictureBook() {
   const promptInput = document.getElementById("prompt");
   apiKey = document.getElementById("key").value;
   const promptText = promptInput.value.trim();
@@ -38,7 +38,12 @@ function generatePictureBook() {
       return;
   }
 
-  generateResponse(promptText);
+    setResponse("Waiting...");
+    let responseText = await generateResponse(promptText);
+    setResponse(responseText);
+
+    let img = document.getElementById("tempImageResponse");
+    setImage(responseText, img);
 }
 
 function setResponse (sentence) {
@@ -50,8 +55,6 @@ function setResponse (sentence) {
 }
 
 async function generateResponse(promptText) {
-    setResponse("Waiting...");
-
     if (promptText) {
         try {
             const response = await fetch('https://api.openai.com/v1/completions', {
@@ -78,10 +81,7 @@ async function generateResponse(promptText) {
                 //Succesful API call!!
                 const data = await response.json();
                 let responseText = createResponse(data)
-                setResponse(responseText);
-
-                let img = document.getElementById("tempImageResponse");
-                setImage(responseText, img);
+                return responseText;
             }
         } catch (error) {
             console.error("ERROR: " + error);
