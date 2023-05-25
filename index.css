@@ -71,6 +71,10 @@ p {
     margin-bottom: 1rem;
 }
 
+#examples-section {
+    display: none;
+}
+
 .example {
     background-color: #fff;
     border: 1px solid #ccc;

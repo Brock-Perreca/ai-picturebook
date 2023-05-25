@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        rel="shortcut icon"
+        href="public/robinweatherall-library-book.32.png"
+        type="icon/png"
+        sizes="32x32"
+    />
     <link rel="stylesheet" href="index.css">
     <title>Picture Book Generator</title>
 </head>
@@ -17,20 +23,20 @@
         <button onclick="generatePictureBook()">Generate Picture Book</button>
 
         <section>
-            <p id="tempResponse">Response Goes Here</p>
+            <h2>Progress Zone</h2>
+            <p id="update-zone">Any updates in the story book creation will go here</p>
         </section>
-
-        <section>
-            <img id="tempImageResponse">
-        </section>
-
     
         <section>
             <h2>How It Works</h2>
             <p>Our picture book generator uses OpenAI's Text Completion AI to understand your prompt and create a story based on it. Dall-E is then used to generate images that correspond to the story. The result is a unique and personalized picture book for you to enjoy.</p>
         </section>
-    
+
         <section>
+            <h2>Please Allow Popups!</h2>
+        </section>
+    
+        <section id="examples-section">
             <h2>Examples</h2>
             <div class="example">
                 <p><strong>Prompt:</strong> A magical adventure with talking animals</p>
