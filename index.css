@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f7f7f7;
+}
+
+header {
+    background-color: #333;
+    padding: 1rem;
+}
+
+header h1 {
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+}
+
+main {
+    padding: 2rem;
+    max-width: 900px;
+    margin: auto;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 100%;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+section {
+    margin-top: 3rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+#examples-section {
+    display: none;
+}
+
+.example {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.book-container {
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.book-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.paragraph {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.paragraph img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+#open-book-button {
+    margin-top: 20px;
+    display: none;
+}

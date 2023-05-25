@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,3 +41,60 @@
     </main>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        rel="shortcut icon"
+        href="public/robinweatherall-library-book.32.png"
+        type="icon/png"
+        sizes="32x32"
+    />
+    <link rel="stylesheet" href="index.css">
+    <title>Picture Book Generator</title>
+</head>
+<body>
+
+    <main>
+        <h1>AI Picturebook</h1>
+        <p>Enter a simple prompt to create a picture book using AI:</p>
+        <input type="password" id="key" placeholder="Enter your OpenAI API Key here...">
+        <input type="text" id="prompt" placeholder="Enter your prompt here...">
+        <button onclick="generatePictureBook()">Generate Picture Book</button>
+        <button onclick="createPictureBook()" id="open-book-button">Open Your Book!</button>
+
+        <section>
+            <h2>Progress Zone</h2>
+            <p id="update-zone">Any updates in the story book creation will go here</p>
+        </section>
+    
+        <section>
+            <h2>How It Works</h2>
+            <p>Our picture book generator uses OpenAI's Text Completion AI to understand your prompt and create a story based on it. Dall-E is then used to generate images that correspond to the story. The result is a unique and personalized picture book for you to enjoy.</p>
+        </section>
+
+        <section>
+            <h2>Please Allow Popups!</h2>
+        </section>
+    
+        <section id="examples-section">
+            <h2>Examples</h2>
+            <div class="example">
+                <p><strong>Prompt:</strong> A magical adventure with talking animals</p>
+                <p><strong>Generated Book:</strong> "The Enchanted Forest Adventure: A Tale of Friendship and Magic"</p>
+            </div>
+            <div class="example">
+                <p><strong>Prompt:</strong> A child's journey through space</p>
+                <p><strong>Generated Book:</strong> "Astronaut Alex: Exploring the Wonders of the Universe"</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>
+>>>>>>> Stashed changes

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <title>AIBookPage</title>
+            <meta property="og:title" content="AIBookPage" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta charset="utf-8" />
+            <meta property="twitter:card" content="summary_large_image" />
+
+            <style data-tag="reset-style-sheet">
+            html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
+            </style>
+            <style data-tag="default-style-sheet">
+            html {
+                font-family: Inter;
+                font-size: 16px;
+            }
+
+            body {
+                font-weight: 400;
+                font-style:normal;
+                text-decoration: none;
+                text-transform: none;
+                letter-spacing: normal;
+                line-height: 1.15;
+                color: var(--dl-color-gray-black);
+                background-color: var(--dl-color-gray-white);
+
+            }
+            </style>
+            <link
+            rel="shortcut icon"
+            href="public/robinweatherall-library-book.32.png"
+            type="icon/png"
+            sizes="32x32"
+            />
+            <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+            data-tag="font"
+            />
+
+            <link rel="stylesheet" href="./book.css" />
+        </head>
+        <body>
+            <div>
+            <link href="./home.css" rel="stylesheet" />
+
+            <div class="home-container">
+                <div class="home-container1"><h1 id="prompt-text">Prompt</h1></div>
+                <div class="home-container2">
+                <div class="home-container3" id="title-page">
+                    <h1 class="home-text1" id="title-page-title">Book Title</h1>
+                    <span class="home-text2">By OpenAI and Brock Perreca</span>
+                    <img
+                    src="https://play.teleporthq.io/static/svg/default-img.svg"
+                    alt="image"
+                    class="home-image"
+                    id="title-img"
+                    />
+                </div>
+                <div class="home-container4" id="left-page">
+                    <img
+                    alt="image"
+                    src="https://play.teleporthq.io/static/svg/default-img.svg"
+                    class="home-image1"
+                    id="page-img"
+                    />
+                </div>
+                <div class="home-container5" id="right-page"><span id="page-text">Text</span></div>
+                </div>
+                <div class="home-container6">
+                <button class="button" onclick="prevPage()">Prev</button>
+                <span class="home-text4" id="page-number">0</span>
+                <button class="button" onclick="nextPage()">Next</button>
+                </div>
+            </div>
+            </div>
+
+            <script>
+            let prompt = "This is a sample prompt. It should be used as the title for the page. But what if it is super long. I dont want it to overflow or anything like that.";
+            let title = "This is a sample title for the book";
+            let textList = [
+                            "This is the text for the first page",
+                            "This is the text for the second page",
+                            "This is the text for the third page",
+                            "This is the text for the fourth page"
+                            ];
+            let urlList = [
+                            "https://upload.wikimedia.org/wikipedia/commons/c/cc/Icon_Pinguin_1_512x512.png",
+                            "https://oaidalleapiprodscus.blob.core.windows.net/private/org-jn7tp8VBQJoHXZUiUQ7CICyI/user-mfHMjhDYLsKaMqSTpKlrA0OQ/img-OIo0RF239pLReHBBWsIYUahr.png?st=2023-05-25T20%3A30%3A57Z&se=2023-05-25T22%3A30%3A57Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-05-25T20%3A47%3A12Z&ske=2023-05-26T20%3A47%3A12Z&sks=b&skv=2021-08-06&sig=fU9FZVOBjpV8ov78/jcyFhbaPi7Uc3GIrMxNcnwlr0w%3D",
+                            "https://upload.wikimedia.org/wikipedia/commons/c/cc/Icon_Pinguin_1_512x512.png",
+                            "https://upload.wikimedia.org/wikipedia/commons/c/cc/Icon_Pinguin_1_512x512.png"
+                            ];
+            let titleImgSrc = "https://upload.wikimedia.org/wikipedia/commons/6/63/Icon_Bird_512x512.png";
+
+            let page = 0;
+            let maxPage = textList.length;
+
+            let pageElem = document.getElementById("page-number");
+            let promptText = document.getElementById("prompt-text");
+            let titlePage = document.getElementById("title-page");
+            let titlePageTitle = document.getElementById("title-page-title");
+            let leftPage = document.getElementById("left-page");
+            let titleImg = document.getElementById("title-img");
+            let img = document.getElementById("page-img");
+            let rightPage = document.getElementById("right-page");
+            let pageText = document.getElementById("page-text");
+
+            titlePageTitle.innerText = prompt;
+            promptText.innerText = prompt;
+            titleImg.src = titleImgSrc;
+
+            function nextPage() {
+                if (page == maxPage) {
+                return;
+                }
+                if (page == 0) {
+                titlePage.style.display = "none";
+                leftPage.style.display = "flex";
+                rightPage.style.display = "flex";
+                }
+                page++
+                updatePage();
+            }
+
+            function prevPage() {
+                if (page == 0) {
+                return;
+                }
+                if (page == 1) {
+                    titlePage.style.display = "flex";
+                    leftPage.style.display = "none";
+                    rightPage.style.display = "none";
+                    page--;
+                    return;
+                }
+                page--;
+                updatePage();
+            }
+
+            function updatePage() {
+                pageElem.innerText = page.toString();
+                pageText.innerText = textList[page - 1];
+                img.src = urlList[page - 1];
+            }
+
+            </script>
+        </body>
+        </html>
