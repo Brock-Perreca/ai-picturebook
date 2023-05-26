@@ -169,8 +169,6 @@ function createResponse(json) {
     return response;
 }
 
-
-
 async function generateImage (imagePrompt, preface) {
     imagePrompt = preface + imagePrompt;
     const options = {
@@ -188,7 +186,10 @@ async function generateImage (imagePrompt, preface) {
     try {
         const response = await fetch('https://api.openai.com/v1/images/generations', options);
         const data = await response.json();
+        console.log(response);
+        console.log(data)
         data?.data.forEach(imageObject => {
+            console.log(imageObject);
             let imageSource = imageObject.url;
             imageSource.toString();
             imgList.push(imageSource);
@@ -331,8 +332,6 @@ function createPictureBook() {
                     titlePage.style.display = "flex";
                     leftPage.style.display = "none";
                     rightPage.style.display = "none";
-                    page--;
-                    return;
                 }
                 page--;
                 updatePage();
