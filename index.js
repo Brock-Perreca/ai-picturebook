@@ -1,23 +1,12 @@
 let model = "text-davinci-003";
 let apiKey;
+let isGenerating = false;
 let inputElement;
 let outputElement;
 let updateZone;
 let storyPreface = "Create a 6 paragraph children's story book based on the following prompt: "
 let imagePromptPreface = "Visually desribe the following text to create a Dall-E image generation prompt: ";
 let dallEPreface = "cartoon ";
-let sampleText = `Once upon a time, there was a brave and adventurous monkey named Max. He lived in the jungle with his family and friends, but he always dreamed of exploring the world beyond. One day, Max decided to take a chance and set out on an adventure.
-
-Max traveled for days until he reached the shoreline of an island far away from home. As soon as he arrived, Max noticed something strange about this place - it was full of pirates! The pirates were everywhere - walking around town, sailing their ships in the harbor, and even flying flags from their masts!
-
-Max knew that these pirates were up to no good so he decided to investigate further. He followed them around town until they stopped at a large warehouse near the docks. Inside the warehouse were piles of treasure chests filled with gold coins!
-
-The monkeys heart raced as he realized what was happening - these pirates had stolen all this treasure from other ships! Without thinking twice about it, Max jumped into action and began fighting off all of the pirates one by one using his agility and strength!
-
-After what seemed like hours of battle against overwhelming odds, Max finally managed to defeat all of them single-handedly! With no more enemies left standing in his way, Max quickly grabbed as much treasure as possible before running back into the jungle with it safely tucked away under his arm.
-
-Back at home in his village deep within the jungle's depths ,Max shared some of his newfound wealth with everyone who had helped him along on this journey . Everyone celebrated together for days afterwards , rejoicing over their victory against such powerful foes . From then on , whenever anyone heard stories about brave heroes battling against evil forces , they would always remember how one small monkey took down an entire crew full pirate scoundrels !
-`
 
 let prompt = "";
 let paragraphList =  [];
@@ -43,29 +32,42 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function generatePictureBook() {
+    if (isGenerating) {
+        updateLog("Story is already being created");
+        return;
+    } else {
+        isGenerating = true;
+    }
     console.log("Creation has begun");
     updateZone.innerText = "Creation has begun";
 
-  const promptInput = document.getElementById("prompt");
-  apiKey = document.getElementById("key").value;
-  prompt = promptInput.value.trim();
+    updatePrefaces();
 
-  if (apiKey === "") {
+    const promptInput = document.getElementById("prompt");
+    apiKey = document.getElementById("key").value;
+    prompt = promptInput.value.trim();
+
+    if (apiKey === "") {
         updateLog("Please enter an API Key.");
-    return;
-  }
+        isGenerating = false;
+        return;
+    }
 
-  if (prompt === "") {
+    if (prompt === "") {
         updateLog("Please enter a prompt.");
-      return;
-  }
+        isGenerating = false;
+        return;
+    }
+
+    document.getElementById("open-book-button").style.display = "none";
 
     let responseText = await generateResponse(prompt, storyPreface);
+    console.log(responseText);
 
     if (responseText === "HTTP ERROR: 401") {
     responseText += " — Your API Key has not been set properly.";
-      updateLog(responseText);
-  }
+        updateLog(responseText);
+    }
 
     paragraphList = [];
     paragraphList = getParagraphs(responseText);
@@ -73,26 +75,40 @@ async function generatePictureBook() {
     console.log(paragraphList);
     updateLog("Story text created")
 
-    let imgPromptList = [];
+    let imgPromptPromiseList = [];
     for (let paragraph of paragraphList) {
-        let curPrompt = await generateResponse(paragraph, imagePromptPreface);
-        curPrompt = curPrompt.trim();
-        imgPromptList.push(curPrompt);
+        imgPromptPromiseList.push(generateResponse(paragraph, imagePromptPreface))
     }
+    const imgPromptList = await Promise.all(imgPromptPromiseList);
     console.log("List of image prompts");
     console.log(imgPromptList);
-    updateLog("Image prompts created")
+    updateLog("Image prompts created");
 
-    //generateImage(prompt, dallEPreface);
-    imgList = [];
+
+    let imgPromiseList = [];
     for (let imgPrompt of imgPromptList) {
-        await generateImage(imgPrompt, dallEPreface);
+        imgPromiseList.push(generateImage(imgPrompt, dallEPreface));
     }
+    imgList = await Promise.all(imgPromiseList);
     console.log("List of image URLs");
     console.log(imgList);
     updateLog("Images created")
 
     document.getElementById("open-book-button").style.display = "block"
+    isGenerating = false;
+}
+
+function updatePrefaces() {
+    let length = document.getElementById("length-slider").value;
+    console.log(`Length of the book is ` + length);
+    let theme = document.getElementById("theme-selector").value;
+    console.log(`Theme of the book is ` + theme)
+    storyPreface = `Create a `+ length + ` paragraph ` + theme + ` story based on the following prompt: `
+
+    let style = document.getElementById("style-selector").value;
+    console.log(`Art style of the book is ` + style);
+    imagePromptPreface = `Visually desribe the following scene to create a Dall-E image generation prompt with a ` + style + ` style: `;
+    dallEPreface = style + " "
 }
 
 function getParagraphs(text) {
@@ -115,7 +131,7 @@ async function generateResponse(prompt, preface) {
     if (prompt) {
         promptText = preface + prompt;
         try {
-            
+            //console.log(`Text API call: ` + promptText);
             const response = await fetch('https://api.openai.com/v1/completions', {
                 method: 'POST',
                 headers: {
@@ -125,7 +141,7 @@ async function generateResponse(prompt, preface) {
                 body: JSON.stringify({
                     'model': model,
                     'prompt': promptText,
-                    'temperature': 0,
+                    'temperature': 0.1,
                     'max_tokens': 1000,
                     'top_p': 1,
                     'frequency_penalty': 1.2,
@@ -180,21 +196,14 @@ async function generateImage (imagePrompt, preface) {
         body: JSON.stringify({
             prompt: imagePrompt,
             n: 1,
-            size: "256x256"
+            size: "512x512"
         })
     }
     try {
         const response = await fetch('https://api.openai.com/v1/images/generations', options);
         const data = await response.json();
-        console.log(response);
-        console.log(data)
-        data?.data.forEach(imageObject => {
-            console.log(imageObject);
-            let imageSource = imageObject.url;
-            imageSource.toString();
-            imgList.push(imageSource);
-            return ;
-        })
+        let url = data.data[0].url;
+        return (url);
     } catch (error) {
         console.error("THERE WAS AN ERROR: " + error);
     }
