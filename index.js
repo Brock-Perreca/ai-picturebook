@@ -1,17 +1,19 @@
 let model = "text-davinci-003";
 let apiKey;
-let isGenerating = false;
 let inputElement;
 let outputElement;
 let updateZone;
-let storyPreface = "Create a 6 paragraph children's story book based on the following prompt: "
+let storyPreface = "Create a 6 paragraph story book based on the following prompt: "
 let imagePromptPreface = "Visually desribe the following text to create a Dall-E image generation prompt: ";
 let dallEPreface = "cartoon ";
+let failedImageUrl = `https://img.uxwing.com/wp-content/themes/uxwing/download/education-school/failed-icon.png`;
 
 let prompt = "";
 let paragraphList =  [];
 let imgList = [];
 let titleImg = "";
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -31,13 +33,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+function enableButton() {
+    document.getElementById(`generate-book-button`).style.display = `block`;
+}
+
+function disableButton(){
+    document.getElementById(`generate-book-button`).style.display = `none`;
+}
+
 async function generatePictureBook() {
-    if (isGenerating) {
-        updateLog("Story is already being created");
-        return;
-    } else {
-        isGenerating = true;
-    }
+    try {
+    disableButton();
     console.log("Creation has begun");
     updateZone.innerText = "Creation has begun";
 
@@ -49,24 +55,23 @@ async function generatePictureBook() {
 
     if (apiKey === "") {
         updateLog("Please enter an API Key.");
-        isGenerating = false;
+        enableButton()
         return;
     }
 
     if (prompt === "") {
         updateLog("Please enter a prompt.");
-        isGenerating = false;
+        enableButton()
         return;
     }
 
     document.getElementById("open-book-button").style.display = "none";
-
     let responseText = await generateResponse(prompt, storyPreface);
-    console.log(responseText);
-
     if (responseText === "HTTP ERROR: 401") {
-    responseText += " — Your API Key has not been set properly.";
+        responseText += " — Your API Key has not been set properly.";
         updateLog(responseText);
+        enableButton();
+        return;
     }
 
     paragraphList = [];
@@ -94,16 +99,21 @@ async function generatePictureBook() {
     console.log(imgList);
     updateLog("Images created")
 
-    document.getElementById("open-book-button").style.display = "block"
-    isGenerating = false;
+    document.getElementById("open-book-button").style.display = "block";
+    }
+    catch {
+        updateLog("Error in production");
+    }
+    
+    enableButton();
 }
 
 function updatePrefaces() {
     let length = document.getElementById("length-slider").value;
-    console.log(`Length of the book is ` + length);
-    let theme = document.getElementById("theme-selector").value;
-    console.log(`Theme of the book is ` + theme)
-    storyPreface = `Create a `+ length + ` paragraph ` + theme + ` story based on the following prompt: `
+    // console.log(`Length of the book is ` + length);
+    // let theme = document.getElementById("theme-selector").value;
+    // console.log(`Theme of the book is ` + theme)
+    storyPreface = `Write a `+ length + ` paragraph story about the following prompt: `
 
     let style = document.getElementById("style-selector").value;
     console.log(`Art style of the book is ` + style);
@@ -155,11 +165,14 @@ async function generateResponse(prompt, preface) {
             } else {
                 //Succesful API call!!
                 const data = await response.json();
-                let responseText = createResponse(data)
+                let responseText = createResponse(data);
+                console.log(responseText);
                 return responseText;
             }
         } catch (error) {
             console.error("ERROR: " + error);
+            enableButton();
+            throw error;
         }
     } else {
         await updateLog("Please enter a prompt");
@@ -206,11 +219,14 @@ async function generateImage (imagePrompt, preface) {
         return (url);
     } catch (error) {
         console.error("THERE WAS AN ERROR: " + error);
+        enableButton();
+        return failedImageUrl;
     }
 }
 
 
 function createPictureBook() {
+    enableButton();
     try {
             const bookWindow = window.open('', '_blank');
             let title = generateResponse(prompt, "Create the title of a children's story book that is about the following: ");
@@ -362,6 +378,6 @@ function createPictureBook() {
             updateLog("Book created in a new window!");
         }
         catch (error) {
-            updateLog("Please enable popups!")
+            updateLog("Please enable popups!");
         }
 }

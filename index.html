@@ -20,7 +20,7 @@
         <p>Enter a simple prompt to create a picture book using AI:</p>
         <input type="password" id="key" placeholder="Enter your OpenAI API Key here...">
         <input type="text" id="prompt" placeholder="Enter your prompt here...">
-        <button onclick="generatePictureBook()">Generate Picture Book</button>
+        <button onclick="generatePictureBook()" id="generate-book-button">Generate Picture Book</button>
         <button onclick="createPictureBook()" id="open-book-button">Open Your Book!</button>
 
         <section>
@@ -35,18 +35,19 @@
         <p>Length:</p>
         <input type="range" id="length-slider" name="pages" min="3" max="10" value="6">
 
-        <p>Story Theme:</p>
+        <!-- <p>Story Theme:</p>
         <select id="theme-selector">
             <option value="childrens">Childrens Book</option>
             <option value="horror">Horror</option>
             <option value="romance">Romance</option>
             <option value="mystery">Mystery</option>
-        </select>
+        </select> -->
 
         <p>Art Style:</p>
         <select id="style-selector">
             <option value="comic">Comic</option>
             <option value="realistic">Realistic</option>
+            <option value="Clay 3d render">Clay</option>
         </select>
     </section>
     
