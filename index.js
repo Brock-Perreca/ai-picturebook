@@ -13,8 +13,6 @@ let paragraphList =  [];
 let imgList = [];
 let titleImg = "";
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
 
     inputElement = document.getElementById("prompt");
@@ -32,6 +30,11 @@ document.addEventListener("DOMContentLoaded", function () {
         apiKeyElement.value = localStorage.getItem(OPENAI_API_KEY);
     }
 });
+
+function handleWarning() {
+    document.getElementById(`warning-div`).style.display = `none`;
+    document.getElementById(`error-overlay`).style.display = `none`;
+}
 
 function enableButton() {
     document.getElementById(`generate-book-button`).style.display = `block`;

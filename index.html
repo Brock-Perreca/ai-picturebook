@@ -16,9 +16,15 @@
 <body>
 
     <main>
+        <div id="error-overlay"></div>
+        <div id="warning-div">
+        <h2>This tool may not be functional as of 2024 due to updates to the OpenAI API</h2>
+        <button onclick="handleWarning()" id="warning-button">Close</button>
+        </div>
         <h1>AI Picturebook</h1>
         <br>
-        <h2>! This tool may not be functional as of 2024 due to updates to the OpenAI API !</h2>
+        <h3>This tool is no longer being maintained!</h3>
+        <br>
         <p>Enter a simple prompt to create a picture book using AI:</p>
         <input type="password" id="key" placeholder="Enter your OpenAI API Key here...">
         <input type="text" id="prompt" placeholder="Enter your prompt here...">
